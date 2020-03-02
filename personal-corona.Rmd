@@ -21,12 +21,17 @@ df.discounted_values
 
 discounted_values <- df.discounted_values %>%
   ggplot(aes(yrs, discounted_values)) +
-  geom_col()
+  geom_col() +
+  ggtitle("How much of the value of the rest of my life will I get per year?")
 
 cumulative_values <- df.discounted_values %>%
   ggplot(aes(yrs, cumulative_values)) +
-  geom_col()
+  geom_col() +
+  ggtitle("How much of the value of the rest of my life will I have gotten by X yrs from now?")
 
 discounted_values
 cumulative_values
+
+ggsave("discounted_values.jpeg", plot=discounted_values)
+ggsave("cumulative_values.jpeg", plot=cumulative_values)
 ```
