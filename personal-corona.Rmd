@@ -1,0 +1,32 @@
+---
+title: "Personal Corona"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+discount_rate <- 0.05
+yrs_from_now_to_end <- 50
+yrs <- 0:(yrs_from_now_to_end - 1)
+raw_discounted_values <- 1 / ((1 + discount_rate) ^ yrs)
+discounted_values <- raw_discounted_values / sum(raw_discounted_values)
+cumulative_values <- cumsum(discounted_values)
+
+df.discounted_values = data.frame(yrs, discounted_values, cumulative_values)
+
+df.discounted_values
+
+discounted_values <- df.discounted_values %>%
+  ggplot(aes(yrs, discounted_values)) +
+  geom_col()
+
+cumulative_values <- df.discounted_values %>%
+  ggplot(aes(yrs, cumulative_values)) +
+  geom_col()
+
+discounted_values
+cumulative_values
+```
