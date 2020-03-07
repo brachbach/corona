@@ -35,3 +35,65 @@ cumulative_values
 ggsave("discounted_values.jpeg", plot=discounted_values)
 ggsave("cumulative_values.jpeg", plot=cumulative_values)
 ```
+
+
+# Find: cfr.30to39.men
+
+## cfr.30to39.men = dead.30to39.men/infected.30to39.men
+
+### dead.30to39.men
+dead.30to39.men = dead.30to39 * dead.30to39.men/dead.30to39
+
+Assume:
+dead.30to39.men/dead.30to39 = dead.men/dead
+
+then dead.30to39.men = dead.30to39 * dead.men/dead
+
+```{r}
+dead.30to39<-18
+dead.men<-653
+dead<-1023
+
+dead.30to39.men<-dead.30to39 * dead.men/dead
+
+dead.30to39.men
+```
+
+### infected.30to39.men
+infected.30to39.men = infected.30to39 * infected.30to39.men/infected.30to39
+
+Assume:
+infected.30to39.men/infected.30to39 = infected.men/infected
+
+then infected.30to39.men = infected.30to39 * infected.men/infected
+
+```{r}
+infected.30to39<-7600
+infected.men<-22981
+infected<-44672
+
+infected.30to39.men<-infected.30to39 * infected.men/infected
+
+infected.30to39.men
+```
+
+### cfr.30to39.men = dead.30to39.men/infected.30to39.men
+
+```{r}
+cfr.30to39.men<-dead.30to39.men/infected.30to39.men
+cfr.30to39.men
+```
+
+### faster way
+cfr.30to39.men = dead.30to39.men/infected.30to39.men
+= (dead.30to39 * dead.men/dead) / (infected.30to39 * infected.men/infected)
+= (dead.30to39 * male.proportion_of_dead) / (infected.30to39 * male.proportion_of_infected)
+= cfr.30to39 * (male.proportion_of_dead / male.proportion_of_infected)
+```{r}
+cfr.30to39<-18/7600 # using raw numbers to avoid losing info to rounding
+male.proportion_of_dead<-0.638
+male.proportion_of_infected<-0.514
+
+cfr.30to39.men <- cfr.30to39 * (male.proportion_of_dead / male.proportion_of_infected)
+cfr.30to39.men
+```
